@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tweets-read-mongo-depl
+  name: query-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: tweets-read-mongo
+      component: query-mongo
   template:
     metadata:
       labels:
-        component: tweets-read-mongo
+        component: query-mongo
     spec:
       containers:
-        - name: tweets-read-mongo
+        - name: query-mongo
           image: mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tweets-read-mongo-srv
+  name: query-mongo-srv
 spec:
   selector:
-    component: tweets-read-mongo
+    component: query-mongo
   ports:
     - name: db
       protocol: TCP

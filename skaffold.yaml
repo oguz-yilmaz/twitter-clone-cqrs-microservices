@@ -24,8 +24,8 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: oguzdocker/tweets-read
-      context: tweets-read
+    - image: oguzdocker/query
+      context: query
       docker:
         dockerfile: Dockerfile
       sync:

@@ -8,7 +8,7 @@ export class CommentCreatedConsumer extends AbstractEventConsumer<CommentCreated
     }
 
     onMessage(data: CommentCreatedEvent["data"]): void {
-        // save comments data to our tweets-read database, check versions to prevent out of order messages
+        // save comments data to our query database, check versions to prevent out of order messages
         console.log('Comment created event received ', data)
     }
 }

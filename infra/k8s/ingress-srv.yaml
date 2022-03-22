@@ -28,7 +28,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: tweets-read-srv
+                name: query-srv
                 port:
                   number: 3014
           - path: /?(.*)
