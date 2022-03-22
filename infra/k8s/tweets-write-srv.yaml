@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tweets-write-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tweets-write
+  template:
+    metadata:
+      labels:
+        app: tweets-write
+    spec:
+      containers:
+        - name: tweets-write
+          image: oguzdocker/tweets-write
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://tweets-write-mongo-srv:27017/tweets'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tweets-write-srv
+spec:
+  selector:
+    app: tweets-write
+  ports:
+    - name: tweets-write
+      protocol: TCP
+      port: 3013
+      targetPort: 3013

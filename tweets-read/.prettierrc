@@ -1,0 +1,21 @@
+{
+    "printWidth": 120,
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": false,
+    "singleQuote": true,
+    "quoteProps": "as-needed",
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "bracketSameLine": false,
+    "arrowParens": "always",
+    "vueIndentScriptAndStyle": false,
+    "breakBeforeElse": true,
+    "computedPropertySpacing": true,
+    "spaceBeforeFunctionParen": true,
+    "templateCurlySpacing": true,
+    "offsetTernaryExpressions": true,
+    "arrayBracketSpacing": false,
+    "indentChains": true,
+    "breakLongMethodChains": true
+}

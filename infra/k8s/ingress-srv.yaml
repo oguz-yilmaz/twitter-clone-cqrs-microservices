@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: twttr.local
+      http:
+        paths:
+          - path: /api/tweets/wr/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: tweets-write-srv
+                port:
+                  number: 3013
+          - path: /api/tweets/rd/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: tweets-read-srv
+                port:
+                  number: 3014
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: vue-client-srv
+                port:
+                  number: 3012
