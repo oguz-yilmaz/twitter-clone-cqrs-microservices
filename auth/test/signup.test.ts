@@ -1,5 +1,5 @@
 import request from 'supertest'
-import { app } from '../../app'
+import { app } from '../src/app'
 
 it('returns 201 on successfully signup', async () => {
     return request(app)
