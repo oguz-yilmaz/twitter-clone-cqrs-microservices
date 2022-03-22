@@ -3,6 +3,7 @@ import 'express-async-errors'
 import { json } from 'body-parser'
 import { CurrentUser, ErrorHandler, NotFoundError } from '@o.yilmaz/shared'
 import { CreateTweetRouter } from './routes/create'
+import { UpdateTweetRouter } from './routes/update'
 
 process.env.JWT_KEY = 'test'
 
@@ -15,6 +16,7 @@ app.use(json())
 app.use(CurrentUser)
 
 app.use(CreateTweetRouter)
+app.use(UpdateTweetRouter)
 
 app.all('*', () => {
     throw new NotFoundError()
