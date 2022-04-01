@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import { app } from "./app"
 import { CommentCreatedConsumer } from '@events/consumers/CommentCreatedConsumer'
 
+require('dotenv').config();
+
 const start = async () => {
     if (!process.env.JWT_KEY) {
         throw new Error('JWT_KEY env variable needs to be defined.')

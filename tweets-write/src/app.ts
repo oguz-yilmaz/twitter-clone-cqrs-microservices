@@ -5,8 +5,6 @@ import { CurrentUser, ErrorHandler, NotFoundError } from '@o.yilmaz/shared'
 import { CreateTweetRouter } from './routes/create'
 import { UpdateTweetRouter } from './routes/update'
 
-process.env.JWT_KEY = 'test'
-
 const app = express()
 // trust ingress proxy
 app.set('trust proxy', true)

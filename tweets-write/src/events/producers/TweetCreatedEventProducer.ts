@@ -1,3 +1,5 @@
 import { AbstractEventProducer, TweetCreatedEvent } from '@o.yilmaz/shared'
 
-export class TweetCreatedEventProducer extends AbstractEventProducer<TweetCreatedEvent> {}
+class TweetCreatedEventProducer extends AbstractEventProducer<TweetCreatedEvent> {}
+
+export const tweetCreatedProducer = new TweetCreatedEventProducer()
