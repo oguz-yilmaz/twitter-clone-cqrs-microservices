@@ -3,7 +3,6 @@ import { app } from '../../src/app'
 import { Tweet } from '@models/Tweet'
 // will be mocked by jest
 import { tweetCreatedProducer } from '@events/producers/TweetCreatedEventProducer'
-import mongoose from 'mongoose'
 
 let tweetData: any
 beforeEach(async () => {

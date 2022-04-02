@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import { app } from "./app"
-import { TweetCreatedEventConsumer } from '@events/consumers/TweetCreatedEventConsumer'
+import { tweetCreatedEventConsumer } from '@events/consumers/TweetCreatedEventConsumer'
+import { tweetUpdatedEventConsumer } from '@events/consumers/TweetUpdatedEventConsumer'
 
 const start = async () => {
     if (!process.env.JWT_KEY) {
@@ -8,7 +9,8 @@ const start = async () => {
     }
 
     try {
-        await new TweetCreatedEventConsumer().listen()
+        await tweetCreatedEventConsumer.listen()
+        await tweetUpdatedEventConsumer.listen()
 
         await mongoose.connect(process.env.MONGO_URI!)
 

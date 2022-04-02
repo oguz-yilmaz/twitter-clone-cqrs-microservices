@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
+import jsonwebtoken from 'jsonwebtoken'
 import { User } from "../models/User"
 import { BadRequestError, Topics, ValidateRequest } from '@o.yilmaz/shared'
 import { SignupValidation } from './validations/SignupValidation'
@@ -23,14 +23,13 @@ router.post(
         const user = User.build({ email, password, username, firstname, lastname })
         await user.save()
 
-        const userJwt = jwt.sign({
+        const jwt = jsonwebtoken.sign({
             id: user.id,
-            email: user.email
+            username: user.username,
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname
         }, process.env.JWT_KEY!)
-
-        req.session = {
-            jwt: userJwt
-        }
 
         await new UserCreatedEventProducer().send(Topics.Users, {
             id: user.id,
@@ -40,7 +39,7 @@ router.post(
             lastname: user.lastname,
         })
 
-        return res.status(201).send(user)
+        return res.status(201).send({ jwt })
     }
 )
 

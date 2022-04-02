@@ -1,13 +1,15 @@
 import { AbstractEventConsumer, Topics, TweetCreatedEvent } from '@o.yilmaz/shared'
 
-export class TweetCreatedEventConsumer extends AbstractEventConsumer<TweetCreatedEvent> {
-    readonly topic: TweetCreatedEvent['topic'] = Topics.Tweets
+class TweetCreatedEventConsumer extends AbstractEventConsumer<TweetCreatedEvent> {
+    readonly topic: TweetCreatedEvent['topic'] = Topics.TweetCreated
 
     protected getGroupId() {
         return 'TweetCreatedEventConsumer'
     }
 
     onMessage(data: TweetCreatedEvent['data']) {
-        console.log('Message received ', data.toString())
+        console.log('[TweetCreatedEventConsumer] Message received ', data.toString())
     }
 }
+
+export const tweetCreatedEventConsumer = new TweetCreatedEventConsumer()

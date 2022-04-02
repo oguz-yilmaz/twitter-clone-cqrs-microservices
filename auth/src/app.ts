@@ -9,8 +9,6 @@ import { signupRouter } from './routes/signup'
 
 import { ErrorHandler, NotFoundError } from "@o.yilmaz/shared"
 
-process.env.JWT_KEY = 'asdf'
-
 const app = express()
 // trust ingress proxy
 app.set('trust proxy', true)

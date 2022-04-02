@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express'
 import {ValidateRequest, BadRequestError} from '@o.yilmaz/shared'
 import {User} from "../models/User"
 import {Password} from "../services/Password"
-import jwt from "jsonwebtoken"
+import jsonwebtoken from "jsonwebtoken"
 import { SigninValidation } from './validations/SigninValidation'
 
 const router = express.Router()
@@ -26,16 +26,15 @@ router.post(
             throw new BadRequestError('Invalid credentials.')
         }
 
-        const userJwt = jwt.sign({
+        const jwt = jsonwebtoken.sign({
             id: existingUser.id,
-            email: existingUser.email
+            username: existingUser.username,
+            email: existingUser.email,
+            firstname: existingUser.firstname,
+            lastname: existingUser.lastname,
         }, process.env.JWT_KEY!)
 
-        req.session = {
-            jwt: userJwt
-        }
-
-        return res.status(200).send({existingUser, userJwt})
+        return res.status(200).send({ jwt })
     }
 )
 

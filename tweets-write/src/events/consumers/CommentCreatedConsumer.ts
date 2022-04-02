@@ -1,10 +1,10 @@
 import { AbstractEventConsumer, CommentCreatedEvent, Topics } from '@o.yilmaz/shared'
 
 export class CommentCreatedConsumer extends AbstractEventConsumer<CommentCreatedEvent> {
-    readonly topic: CommentCreatedEvent["topic"] = Topics.Comments
+    readonly topic: CommentCreatedEvent["topic"] = Topics.CommentsCreated
 
     protected getGroupId(): string {
-        return Topics.Comments
+        return 'CommentCreatedConsumer'
     }
 
     onMessage(data: CommentCreatedEvent["data"]): void {
