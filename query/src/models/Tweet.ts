@@ -3,10 +3,13 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 interface TweetAttributes {
     id: string
+    userId: string
     content: string
 }
 
 export interface TweetDocument extends mongoose.Document {
+    id: string
+    userId: string
     content: string
     version: number
 }
@@ -19,14 +22,13 @@ interface TweetModel extends mongoose.Model<TweetDocument> {
 
 const tweetSchema = new mongoose.Schema(
     {
-        title: {
+        content: {
             type: String,
             required: true,
         },
-        price: {
-            type: Number,
+        userId: {
+            type: String,
             required: true,
-            min: 0
         },
     },
     {
@@ -46,7 +48,7 @@ tweetSchema.plugin(updateIfCurrentPlugin)
 // adds method to ticket model
 tweetSchema.statics.build = (attrs: TweetAttributes) => {
     return new Tweet({
-        _id: attrs.id,
+        userId: attrs.userId,
         content: attrs.content,
     })
 }

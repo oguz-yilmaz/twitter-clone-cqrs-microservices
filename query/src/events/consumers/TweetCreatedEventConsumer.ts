@@ -1,4 +1,5 @@
 import { AbstractEventConsumer, Topics, TweetCreatedEvent } from '@o.yilmaz/shared'
+import { Tweet } from '@models/Tweet'
 
 class TweetCreatedEventConsumer extends AbstractEventConsumer<TweetCreatedEvent> {
     readonly topic: TweetCreatedEvent['topic'] = Topics.TweetCreated
@@ -7,8 +8,14 @@ class TweetCreatedEventConsumer extends AbstractEventConsumer<TweetCreatedEvent>
         return 'TweetCreatedEventConsumer'
     }
 
-    onMessage(data: TweetCreatedEvent['data']) {
+    async onMessage(data: TweetCreatedEvent['data']) {
+        const { id, userId, content } = data
+
         console.log('[TweetCreatedEventConsumer] Message received ', data.toString())
+
+        const tweet = Tweet.build({ id, userId, content })
+
+        await tweet.save()
     }
 }
 
