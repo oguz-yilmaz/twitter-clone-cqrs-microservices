@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Schema, Model, Document, model } from 'mongoose'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 interface TweetAttributes {
@@ -6,19 +6,19 @@ interface TweetAttributes {
     content: string
 }
 
-export interface TweetDocument extends mongoose.Document {
+export interface TweetDocument extends Document {
     userId: string
     content: string
     version: number
 }
 
-interface TweetModel extends mongoose.Model<TweetDocument> {
+interface TweetModel extends Model<TweetDocument> {
     build(attrs: TweetAttributes): TweetDocument
 
-    findByEvent(event: { id: string; version: number }): Promise<TweetDocument | null>
+    findByVersion(event: { id: string; version: number }): Promise<TweetDocument | null>
 }
 
-const tweetSchema = new mongoose.Schema(
+const tweetSchema = new Schema(
     {
         content: {
             type: String,
@@ -43,7 +43,6 @@ const tweetSchema = new mongoose.Schema(
 tweetSchema.set('versionKey', 'version')
 tweetSchema.plugin(updateIfCurrentPlugin)
 
-// adds method to ticket model
 tweetSchema.statics.build = (attrs: TweetAttributes) => {
     return new Tweet({
         userId: attrs.userId,
@@ -51,13 +50,13 @@ tweetSchema.statics.build = (attrs: TweetAttributes) => {
     })
 }
 
-tweetSchema.statics.findByEvent = (event: { id: string; version: number }) => {
+tweetSchema.statics.findByVersion = (event: { id: string; version: number }) => {
     return Tweet.findOne({
         _id: event.id,
         version: event.version - 1
     })
 }
 
-const Tweet = mongoose.model<TweetDocument, TweetModel>('Tweet', tweetSchema);
+const Tweet = model<TweetDocument, TweetModel>('Tweet', tweetSchema);
 
 export { Tweet };

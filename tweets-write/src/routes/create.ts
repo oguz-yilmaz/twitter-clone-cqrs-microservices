@@ -23,7 +23,7 @@ router.post(
         await tweetCreatedProducer.send(Topics.TweetCreated, {
             id: tweet.id,
             content: tweet.content,
-            userId: tweet.userId,
+            user: req.currentUser!,
             version: tweet.version,
         })
 

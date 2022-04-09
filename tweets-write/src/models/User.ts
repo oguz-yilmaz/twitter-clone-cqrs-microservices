@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Schema, Model, Document, model } from 'mongoose'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 interface UserAttributes {
@@ -9,7 +9,7 @@ interface UserAttributes {
     lastname: string
 }
 
-export interface UserDocument extends mongoose.Document {
+export interface UserDocument extends Document {
     id: string
     username: string
     email: string
@@ -17,13 +17,13 @@ export interface UserDocument extends mongoose.Document {
     lastname: string
 }
 
-interface UserModel extends mongoose.Model<UserDocument> {
+interface UserModel extends Model<UserDocument> {
     build(attrs: UserAttributes): UserDocument
 
     findByVersion(event: { id: string; version: number }): Promise<UserDocument | null>
 }
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         username: {
             type: String,
@@ -75,6 +75,6 @@ userSchema.statics.findByVersion = (event: { id: string; version: number }) => {
     })
 }
 
-const User = mongoose.model<UserDocument, UserModel>('User', userSchema);
+const User = model<UserDocument, UserModel>('User', userSchema);
 
 export { User };

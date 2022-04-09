@@ -1,8 +1,6 @@
 import mongoose from 'mongoose'
 import { app } from "./app"
 import dotenv from 'dotenv'
-import { CommentCreatedConsumer } from '@events/consumers/CommentCreatedConsumer'
-
 dotenv.config();
 
 const start = async () => {
@@ -11,8 +9,6 @@ const start = async () => {
     }
 
     try {
-        // await new CommentCreatedConsumer().listen()
-
         await mongoose.connect(process.env.MONGO_URI!)
 
         app.listen(3013, () => {
