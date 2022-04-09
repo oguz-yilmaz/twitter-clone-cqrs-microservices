@@ -29,5 +29,5 @@ spec:
   ports:
     - name: query
       protocol: TCP
-      port: 3013
-      targetPort: 3013
+      port: 3014
+      targetPort: 3014
