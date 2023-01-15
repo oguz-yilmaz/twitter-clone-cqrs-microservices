@@ -1,1 +1,0 @@
-export default '@bootstrap/js/bootstrap.min'

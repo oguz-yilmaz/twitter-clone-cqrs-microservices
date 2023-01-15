@@ -33,7 +33,7 @@ router.put(
         await tweetUpdatedEventProducer.send(Topics.TweetUpdated, {
             id: tweet.id,
             content: tweet.content,
-            user: req.currentUser!,
+            userId: req.currentUser!.id,
             version: tweet.version,
         })
 

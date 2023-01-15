@@ -31,10 +31,11 @@ spec:
                 name: query-srv
                 port:
                   number: 3014
+          # go to http://twttr.local/ url
           - path: /?(.*)
             pathType: Prefix
             backend:
               service:
-                name: vue-client-srv
+                name: react-client-srv
                 port:
-                  number: 3012
+                  number: 3000
