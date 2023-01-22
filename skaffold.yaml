@@ -1,44 +1,55 @@
 apiVersion: skaffold/v2alpha3
 kind: Config
 deploy:
-  kubectl:
-    manifests:
-      - ./infra/k8s/*
+    kubectl:
+        manifests:
+            - ./infra/k8s/*
 build:
-  local:
-    push: false
-    # keep this as much as the artifacts number with max being 8
-    concurrency: 4
-  artifacts:
-    - image: oguzdocker/auth
-      context: auth
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
-    - image: oguzdocker/react-client
-      context: react-client
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.{ts,tsx}'
-            dest: .
-    - image: oguzdocker/query
-      context: query
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
-    - image: oguzdocker/tweets-write
-      context: tweets-write
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
+    local:
+        # do not push this to docker hub
+        push: false
+        # keep this as much as the artifacts number with max being 8
+        concurrency: 4
+    artifacts:
+        - image: oguzdocker/auth
+          # directory name, the auth folder in this case
+          # So whenever something changes inside this directory, Scaffold will try to update the pod
+          # ❗There are 2 ways Skaffold will update our pod
+          #   ⓵  [Sync in place] If we make changes in any of the matched file described as 'src/**/*.ts'
+          #       then it will just copy that file into the pod, very fast, in this case any ts file
+          #       Syncing 1 file ..
+          #   ⓶  [Rebuild the image] If we update any file other than that the matched files, then Skaffold will
+          #       rebuild the entire image. For example if we update package.json, in this case doesn't match with
+          #       'src/**/*.ts', so it will rebuild the entire image.
+          #       Syncing 1 file ... Compiled successfully.
+          context: auth
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
+                    dest: .
+        - image: oguzdocker/react-client
+          context: react-client
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.{ts,tsx}'
+                    dest: .
+        - image: oguzdocker/query
+          context: query
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
+                    dest: .
+        - image: oguzdocker/tweets-write
+          context: tweets-write
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
+                    dest: .
