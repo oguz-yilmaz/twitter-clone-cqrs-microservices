@@ -3,10 +3,11 @@ FROM node:18.13.0-alpine
 WORKDIR /app
 
 COPY package.json .
+COPY yarn.lock .
 COPY tsconfig.json .
 
-RUN npm install --only-prod --legacy-peer-deps
+RUN yarn install
 
 COPY . .
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

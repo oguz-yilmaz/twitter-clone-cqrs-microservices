@@ -24,7 +24,7 @@ spec:
     matchLabels:
       app: kafka
   serviceName: "kafka"
-  replicas: 1
+  replicas: 2
   podManagementPolicy: OrderedReady
   template:
     metadata:
@@ -41,6 +41,8 @@ spec:
             - containerPort: 9999
               name: jmx
           env:
+            - name: KAFKA_ADVERTISED_HOST_NAME
+              value: "192.168.49.2"
             - name: KAFKA_ADVERTISED_PORT
               value: "9092"
             - name: BROKER_ID_COMMAND

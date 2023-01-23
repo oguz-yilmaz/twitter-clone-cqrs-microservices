@@ -17,7 +17,7 @@ build:
           # ❗There are 2 ways Skaffold will update our pod
           #   ⓵  [Sync in place] If we make changes in any of the matched file described as 'src/**/*.ts'
           #       then it will just copy that file into the pod, very fast, in this case any ts file
-          #       Syncing 1 file ..
+          #       Syncing 1 file ...
           #   ⓶  [Rebuild the image] If we update any file other than that the matched files, then Skaffold will
           #       rebuild the entire image. For example if we update package.json, in this case doesn't match with
           #       'src/**/*.ts', so it will rebuild the entire image.

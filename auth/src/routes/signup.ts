@@ -31,12 +31,13 @@ router.post(
             lastname: user.lastname
         }, process.env.JWT_KEY!)
 
-        await new UserCreatedEventProducer().send(Topics.Users, {
+        await new UserCreatedEventProducer().send(Topics.UsersCreated, {
             id: user.id,
             username: user.username,
             email: user.email,
             firstname: user.firstname,
             lastname: user.lastname,
+            version: 1
         })
 
         return res.status(201).send({ jwt })

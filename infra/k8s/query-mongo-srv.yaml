@@ -21,6 +21,7 @@ kind: Service
 metadata:
   name: query-mongo-srv
 spec:
+  type: NodePort
   selector:
     component: query-mongo
   ports:
@@ -28,3 +29,4 @@ spec:
       protocol: TCP
       port: 27017
       targetPort: 27017
+      nodePort: 31112

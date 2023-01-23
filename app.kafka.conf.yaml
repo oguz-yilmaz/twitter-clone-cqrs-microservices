@@ -1,0 +1,9 @@
+micronaut:
+  security:
+    enabled: false
+
+  # list of kafka cluster available for akhq
+  connections:
+    my-cluster-plain-text: # url friendly name for the cluster (letter, number, _, -, ... dot are not allowed here)
+      properties: # standard kafka properties (optional)
+        bootstrap.servers: "192.168.49.2:9092"
